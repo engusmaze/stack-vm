@@ -75,6 +75,7 @@ inline fn Add(comptime T: type) !type {
     }
     return struct {
         fn eval(vm: *VM) !void {
+            @setRuntimeSafety(false);
             try vm.push_stack(try vm.pop_stack(T) + try vm.pop_stack(T));
         }
     };
@@ -86,6 +87,7 @@ inline fn Sub(comptime T: type) !type {
     }
     return struct {
         fn eval(vm: *VM) !void {
+            @setRuntimeSafety(false);
             try vm.push_stack(try vm.pop_stack(T) - try vm.pop_stack(T));
         }
     };
@@ -97,6 +99,7 @@ inline fn Mul(comptime T: type) !type {
     }
     return struct {
         fn eval(vm: *VM) !void {
+            @setRuntimeSafety(false);
             try vm.push_stack(try vm.pop_stack(T) * try vm.pop_stack(T));
         }
     };
@@ -108,6 +111,7 @@ inline fn Div(comptime T: type) !type {
     }
     return struct {
         fn eval(vm: *VM) !void {
+            @setRuntimeSafety(false);
             try vm.push_stack(try vm.pop_stack(T) / try vm.pop_stack(T));
         }
     };
@@ -120,7 +124,6 @@ inline fn Print(comptime T: type) !type {
                 u64 => std.debug.print("{any}\n", .{vm.pop_stack(u64)}),
                 else => unreachable,
             }
-            // try vm.push_stack(try vm.pop_stack(T) / try vm.pop_stack(T));
         }
     };
 }
